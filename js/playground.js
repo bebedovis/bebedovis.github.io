@@ -15,7 +15,10 @@
 
   const WALL = 400;          // thick walls so fast throws don't tunnel through
   const MAX_SPEED = 45;
-  const DRAG_THRESHOLD = 5;  // px — below this a pointer interaction counts as a click
+  const DRAG_THRESHOLD = 5;  // px; below this a pointer interaction counts as a click
+  const SEEN_MS = 1200;      // detection boxes linger this long after a body comes to rest
+  const BOX_PAD = 6;
+  const INSET = BOX_PAD + 2;
   const mobileQuery = window.matchMedia('(max-width: 767px)');
 
   const engine = Engine.create({ gravity: { x: 0, y: 1 } });
@@ -25,7 +28,8 @@
   let W = 0;
   let H = 0;
   let walls = [];
-  let items = [];            // { el, body, w, h }
+  let items = [];            // { el, body, w, h, box, label, text, seenAt }
+  let hovered = null;
   let spawnTimers = [];
 
   container.classList.add('is-live');
@@ -38,12 +42,13 @@
 
   const buildWalls = () => {
     Composite.remove(engine.world, walls);
-    const opts = { isStatic: true, friction: 0.3, restitution: 0.3 };
+    const opts = { isStatic: true, friction: 0.6, restitution: 0.2 };
+    const i = INSET; // keeps the detection boxes from being clipped at the edges
     walls = [
-      Bodies.rectangle(W / 2, H + WALL / 2, W + WALL * 2, WALL, opts),   // floor
-      Bodies.rectangle(W / 2, -WALL / 2, W + WALL * 2, WALL, opts),      // ceiling
-      Bodies.rectangle(-WALL / 2, H / 2, WALL, H + WALL * 2, opts),      // left
-      Bodies.rectangle(W + WALL / 2, H / 2, WALL, H + WALL * 2, opts),   // right
+      Bodies.rectangle(W / 2, H - i + WALL / 2, W + WALL * 2, WALL, opts),   // floor
+      Bodies.rectangle(W / 2, i - WALL / 2, W + WALL * 2, WALL, opts),       // ceiling
+      Bodies.rectangle(i - WALL / 2, H / 2, WALL, H + WALL * 2, opts),       // left
+      Bodies.rectangle(W - i + WALL / 2, H / 2, WALL, H + WALL * 2, opts),   // right
     ];
     Composite.add(engine.world, walls);
   };
@@ -53,8 +58,8 @@
     const h = el.offsetHeight;
     const shape = el.dataset.shape;
     const common = {
-      restitution: 0.5,
-      friction: 0.05,
+      restitution: shape === 'rect' ? 0.2 : 0.4,
+      friction: 0.5,
       frictionAir: mobileQuery.matches ? 0.02 : 0.01,
       density: shape === 'rect' ? 0.002 : 0.0015,
     };
@@ -65,15 +70,16 @@
       const radius = shape === 'pill' ? h / 2 - 0.5 : 14;
       body = Bodies.rectangle(x, y, w, h, { ...common, chamfer: { radius } });
     }
-    Body.setAngle(body, (Math.random() - 0.5) * 0.6);
+    Body.setAngle(body, (Math.random() - 0.5) * 0.3);
     return { el, body, w, h };
   };
 
   const buildItems = () => {
     spawnTimers.forEach(clearTimeout);
     spawnTimers = [];
-    items.forEach(({ el, body }) => {
+    items.forEach(({ el, body, box }) => {
       Composite.remove(engine.world, body);
+      box.remove();
       el.classList.remove('is-placed');
       el.style.transform = '';
     });
@@ -84,17 +90,38 @@
     // Cards drop last so they land on top of the pile and stay readable.
     const order = [...els.filter((el) => el.dataset.shape !== 'rect'), ...els.filter((el) => el.dataset.shape === 'rect')];
 
-    items = order.map((el) => {
+    // Spawn below the name and intro so they stay readable while the pile forms.
+    const text = container.querySelector('.hero__text');
+    const spawnTop = Math.min(text ? text.offsetTop + text.offsetHeight : 0, H * 0.6);
+
+    items = order.map((el, i) => {
       const w = el.offsetWidth;
-      const x = w / 2 + Math.random() * Math.max(1, W - w);
-      const y = el.offsetHeight / 2 + Math.random() * H * 0.3;
-      return makeBody(el, x, y);
+      const h = el.offsetHeight;
+      // On wide screens the pile gathers on the right, balancing the name on the left.
+      const minX = W >= 1024 ? W * 0.5 : INSET;
+      const x = minX + w / 2 + Math.random() * Math.max(1, W - INSET - minX - w);
+      const y = spawnTop + h / 2 + Math.random() * Math.max(1, (H - spawnTop) * 0.25);
+      const item = makeBody(el, x, y);
+
+      // Detection overlay: an axis-aligned box that tracks the body, like a detector + tracker.
+      item.box = document.createElement('div');
+      item.box.className = 'bbox';
+      item.box.setAttribute('aria-hidden', 'true');
+      item.label = document.createElement('span');
+      item.label.className = 'bbox__label';
+      item.text = el.dataset.label || 'object';
+      item.label.textContent = item.text;
+      item.box.appendChild(item.label);
+      container.appendChild(item.box);
+      item.id = `id ${String(i + 1).padStart(2, '0')}`;
+      item.seenAt = 0;
+      return item;
     });
 
     items.forEach((item, i) => {
       spawnTimers.push(setTimeout(() => {
         Composite.add(engine.world, item.body);
-        Body.setAngularVelocity(item.body, (Math.random() - 0.5) * 0.08);
+        Body.setAngularVelocity(item.body, (Math.random() - 0.5) * 0.03);
         item.el.classList.add('is-placed');
       }, 150 + i * 90));
     });
@@ -119,11 +146,25 @@
   let lastTime = 0;
   let rafId = 0;
 
-  const render = () => {
-    for (const { el, body, w, h } of items) {
+  const render = (now = performance.now()) => {
+    for (const item of items) {
+      const { el, body, w, h, box } = item;
       if (!el.classList.contains('is-placed')) continue;
       const { x, y } = body.position;
       el.style.transform = `translate(${(x - w / 2).toFixed(1)}px, ${(y - h / 2).toFixed(1)}px) rotate(${body.angle.toFixed(4)}rad)`;
+
+      const grabbed = drag && drag.item === item;
+      if (grabbed || hovered === item || body.speed > 1 || body.angularSpeed > 0.02) item.seenAt = now;
+      const seen = now - item.seenAt < SEEN_MS;
+      box.classList.toggle('is-seen', seen);
+      box.classList.toggle('is-front', grabbed);
+      const labelText = grabbed ? item.id : item.text;
+      if (item.label.textContent !== labelText) item.label.textContent = labelText;
+      if (!seen && !box.classList.contains('is-seen')) continue;
+      const { min, max } = body.bounds;
+      box.style.width = `${(max.x - min.x + BOX_PAD * 2).toFixed(1)}px`;
+      box.style.height = `${(max.y - min.y + BOX_PAD * 2).toFixed(1)}px`;
+      box.style.transform = `translate(${Math.max(0, min.x - BOX_PAD).toFixed(1)}px, ${(min.y - BOX_PAD).toFixed(1)}px)`;
     }
   };
 
@@ -136,7 +177,7 @@
       if (speed > MAX_SPEED) Body.setVelocity(body, { x: (v.x / speed) * MAX_SPEED, y: (v.y / speed) * MAX_SPEED });
     }
     Engine.update(engine, dt);
-    render();
+    render(now);
     rafId = requestAnimationFrame(tick);
   };
 
@@ -198,7 +239,7 @@
     // A real drag should not also trigger the card's link.
     if (drag.moved) {
       const el = drag.item.el;
-      const block = (ev) => ev.preventDefault();
+      const block = (ev) => { ev.preventDefault(); ev.stopImmediatePropagation(); };
       el.addEventListener('click', block, { once: true, capture: true });
       // click (if any) fires right after pointerup; don't swallow a later real click
       setTimeout(() => el.removeEventListener('click', block, true), 0);
@@ -212,23 +253,24 @@
   container.addEventListener('pointercancel', endDrag);
   container.addEventListener('dragstart', (e) => e.preventDefault());
 
-  // Hover-to-dim siblings (mouse only).
+  // Hovering an object (mouse only) makes the detector show its box.
   container.addEventListener('pointerover', (e) => {
-    if (e.pointerType === 'mouse') container.classList.toggle('is-hovering', !!e.target.closest('.pg-item'));
+    if (e.pointerType !== 'mouse') return;
+    const el = e.target.closest('.pg-item');
+    hovered = (el && items.find((it) => it.el === el)) || null;
   });
-  container.addEventListener('pointerleave', () => container.classList.remove('is-hovering'));
+  container.addEventListener('pointerleave', () => { hovered = null; });
 
   // ---------- Lifecycle ----------
   measure();
   buildWalls();
 
-  let built = false;
+  // The hero is on screen at load, so drop the items right away.
+  buildItems();
   const io = new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
-    // Drop the items the first time the playground scrolls into view.
-    if (visible && !built) { built = true; buildItems(); }
     updateRunning();
-  }, { threshold: 0.15 });
+  }, { threshold: 0 });
   io.observe(container);
   document.addEventListener('visibilitychange', updateRunning);
 
@@ -244,7 +286,6 @@
 
   // Crossing the phone breakpoint changes item sizes: rebuild the pile.
   mobileQuery.addEventListener('change', () => {
-    if (!built) return;
     measure();
     buildWalls();
     buildItems();

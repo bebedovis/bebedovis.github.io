@@ -8,28 +8,37 @@ The personal portfolio of Mauricio González Ortiz, an AI/ML and backend enginee
 
 ## Layout
 
-- `index.html`: all page content as real text. The avatar SVG is inlined inside `#avatar`, so `main.js` can animate its `#pupils` and `#mouth` groups without fetching them, which also makes the page work over `file://`.
-- `css/styles.css`: design tokens on `:root`. The palette is dark: bg `#14120c`, text `#ece7dd`, gold `#e1c16e`, muted `#a39c8c`/`#756f60`. Fonts are Newsreader, Hanken Grotesk and JetBrains Mono, loaded from Google Fonts. Styles are mobile-first, with breakpoints at 480 / 768 / 1024 px.
-- `js/main.js`: the mobile nav toggle, the word-by-word blur reveal on `.reveal` headings, the avatar (pupils follow the pointer, click shows an "ouch" face), and the role typewriter.
-- `js/playground.js`: the drag/throw playground in `#pg`. Each `.pg-item` DOM element is backed by a Matter.js body (loaded from cdnjs), and its CSS `transform` is written every frame.
-  - `data-shape` (`rect` | `pill` | `circle`) selects the body shape.
-  - `data-optional` items are hidden on phones via CSS and skipped.
-  - A card is an `<a href="#job-…">`. A click with less than 5 px of movement follows the link, while a real drag suppresses it.
-  - Dragging uses custom pointer events plus a `Constraint`, not `MouseConstraint`, so touch swipes on empty space still scroll the page. Items use `touch-action: none` and the box uses `pan-y`.
-  - Fallback: when Matter.js fails to load or `prefers-reduced-motion` is set, the script exits early and the CSS flex-wrap layout of `.pg` (without `.is-live`) stays.
+- `index.html`: all page content as real text. The top bar has no JS. The hero `section#pg.hero.pg` is also the physics playground: `.hero__text` (name, intro, hint) sits behind `.pg-items`. The avatar SVG is inlined in `#avatar`, which is itself a playground item, so `main.js` can animate its `#pupils` and `#mouth` groups and the page works over `file://`.
+- `css/styles.css`: tokens on `:root`.
+  - Colors: `--ink #121110` bg, `--graphite` object surfaces, `--bone` text, `--ash` secondary, `--rule` hairlines, `--brass #d6b25e`.
+  - Brass is the only accent and is reserved for detection boxes and links. Don't use it as decoration.
+  - Type: Newsreader for display and reading text, Hanken Grotesk for UI and meta text. JetBrains Mono is used only in detection labels.
+  - Sections use a left heading rail from 1024px up, on the `.section` grid. Breakpoints are 767/768 and 1024.
+- `js/main.js`: the footer year and the avatar. Its pupils look toward the pointer relative to the avatar's current position, and a click shows the "ouch" face.
+- `js/playground.js`: the Matter.js (cdnjs) hero playground. Each `.pg-item` DOM element is backed by a body, and its CSS `transform` is written every frame.
+  - `data-shape` (`rect` | `pill` | `circle`) selects the body shape. `data-optional` items are hidden on phones via CSS and skipped. `data-label` is the text on the detection label.
+  - **Detection overlay:** each item gets a sibling `.bbox`, sized every frame from `body.bounds` so it stays axis-aligned while the object rotates. It shows (`.is-seen`) while the body moves, is hovered or is dragged, and fades `SEEN_MS` after it rests. While dragging, the label changes to a tracker id (`id 07`).
+  - Items spawn below `.hero__text`, in the right half on screens ≥1024px wide. Walls are inset by `INSET` so boxes aren't clipped.
+  - Dragging uses custom pointer events plus a `Constraint`, not `MouseConstraint`, so touch swipes on empty space still scroll the page. Items use `touch-action: none` and the hero uses `pan-y`.
+  - Click vs drag: under 5 px of movement counts as a click. A real drag swallows the click with `stopImmediatePropagation`, so dragging the avatar doesn't trigger "ouch" and dragging a card doesn't follow its link.
+  - Fallback: when Matter.js fails to load or `prefers-reduced-motion` is set, the script exits early. Without `.is-live`, the items wrap in a static row, there are no boxes, and the hint is hidden.
 - `assets/avatar.svg`: the same avatar, used as the favicon.
-- `maucv.pdf`: the CV linked from the "Download CV" buttons.
+- `maucv.pdf`: the CV linked from the nav and contact section.
 - `.nojekyll`: tells GitHub Pages to serve the files as-is.
 
-## Content rules
+## Content and style rules
 
-The content comes from `maucv.pdf`, covering background, education, work and research experience, and skills. The CV's "Independent Projects" section is intentionally left out. When you add a job, add it both to the `.timeline` in `#experience` and as a `.pg-card` in the playground, with a matching `id`/`href`. The phone number from the CV is deliberately not shown on the public site.
+- The content comes from `maucv.pdf`: background, education, work and research experience, and skills. The CV's "Independent Projects" section is intentionally left out.
+- The phone number is deliberately not shown on the public site.
+- Don't use em dashes in page text; use parentheses, commas or "to" instead.
+- To add a job, add a `.job` to `#work` and a `.pg-job` to the hero, with a matching `id`/`href`.
+- Keep the design restrained. There is one animated moment (the drop-in with detection boxes). Avoid all-caps labels, numbered section eyebrows, one-word italic accents, chip or tag clouds, and card grids.
 
 ## Playground gotchas
 
-- Body sizes come from each element's rendered size (`offsetWidth`/`offsetHeight`) at the moment the pile is built. The pile is built the first time `#pg` scrolls into view, and rebuilt when the viewport crosses the phone breakpoint. Resize the items in CSS; never set their size in JS.
+- Body sizes come from each element's rendered size at build time. The pile is built on load and rebuilt when the viewport crosses the phone breakpoint. Resize the items in CSS; never set their size in JS.
 - The phone breakpoint appears in two places: `@media (max-width: 767px)` in `styles.css` and `mobileQuery` in `playground.js`. Keep them in sync.
-- Styles for items in physics mode belong under `.pg.is-live`. Plain `.pg` styles are the static fallback layout.
+- Styles for items in physics mode go under `.pg.is-live`; plain `.pg-items` styles are the fallback layout.
 
 ## Deploy
 

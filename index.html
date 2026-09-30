@@ -4,53 +4,63 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mauricio González | AI/ML &amp; Backend Engineer</title>
-  <meta name="description" content="Mauricio González Ortiz, a backend and AI engineer building production computer vision, LLM agents and RAG/ETL pipelines.">
-  <meta name="theme-color" content="#14120c">
+  <meta name="description" content="Mauricio González Ortiz, a backend and AI engineer who puts computer vision and LLM agents into production.">
+  <meta name="theme-color" content="#121110">
   <meta property="og:title" content="Mauricio González | AI/ML &amp; Backend Engineer">
-  <meta property="og:description" content="Production computer vision, LLM agents and data pipelines.">
+  <meta property="og:description" content="Computer vision, LLM agents and data pipelines, in production.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bebedovis.github.io/">
   <link rel="icon" href="assets/avatar.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <!-- NAV -->
-  <header class="nav" id="top">
-    <div class="nav__inner">
-      <a class="nav__logo" href="#top" aria-label="Back to top">MG<span>.</span></a>
-      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
-        <span></span><span></span>
-      </button>
-      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
-        <a href="#playground">Playground</a>
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact" class="nav__cta">Contact</a>
-      </nav>
-    </div>
+  <header class="bar">
+    <a class="bar__mark" href="#top" aria-label="Mauricio González, back to top">MG</a>
+    <nav class="bar__nav" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <a href="maucv.pdf" target="_blank" rel="noopener">CV</a>
+    </nav>
   </header>
 
   <main id="main">
-    <!-- HERO -->
-    <section class="hero wrap">
-      <div class="hero__text">
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> San Andrés Cholula, MX · open to remote</p>
-        <h1 class="hero__title reveal">Mauricio <em>González</em></h1>
-        <p class="hero__role mono" aria-live="off"><span class="hero__prompt">&gt;</span> <span id="role">AI / ML Engineer</span><span class="caret" aria-hidden="true"></span></p>
-        <p class="hero__lead">Backend &amp; AI engineer with a physics background. I build production computer vision, LLM agents and data pipelines, and I like the part where they actually run on a factory floor.</p>
-        <div class="hero__ctas">
-          <a class="btn btn--gold" href="maucv.pdf" target="_blank" rel="noopener">Download CV</a>
-          <a class="btn btn--ghost" href="#contact">Get in touch</a>
-        </div>
+    <!-- HERO: also the physics playground -->
+    <section class="hero pg" id="pg" aria-labelledby="name">
+      <div class="hero__text" id="top">
+        <h1 id="name">Mauricio González Ortiz</h1>
+        <p class="hero__lede">Backend and AI engineer. I put computer vision and LLM agents into production, from the camera to the factory floor.</p>
+        <p class="hero__hint">Everything below can be dragged and thrown.</p>
       </div>
-      <div class="hero__avatar">
-        <div class="avatar" id="avatar" title="Go on, poke him">
+
+      <div class="pg-items">
+        <a class="pg-item pg-job" href="#job-parvada" data-shape="rect" data-label="parvada 0.98">
+          <strong>Parvada</strong>
+          <span>AI/ML deployment engineer</span>
+          <span class="pg-job__years">2025 to 2026</span>
+        </a>
+        <a class="pg-item pg-job" href="#job-okus" data-shape="rect" data-label="okus_ai 0.97">
+          <strong>Okus AI</strong>
+          <span>Data scientist, ML engineer</span>
+          <span class="pg-job__years">2024 to 2025</span>
+        </a>
+        <a class="pg-item pg-job" href="#job-harvard" data-shape="rect" data-label="harvard 0.96">
+          <strong>Harvard Medical School</strong>
+          <span>Research fellow, Zhang Lab</span>
+          <span class="pg-job__years">2022 to 2023</span>
+        </a>
+
+        <span class="pg-item pg-metric" data-shape="pill" data-label="metric 0.95"><b>3000</b> chicks a minute</span>
+        <span class="pg-item pg-metric" data-shape="pill" data-label="metric 0.93"><b>10×</b> faster re-ID</span>
+        <span class="pg-item pg-metric" data-shape="pill" data-label="metric 0.91" data-optional><b>−33%</b> latency</span>
+        <span class="pg-item pg-metric" data-shape="pill" data-label="metric 0.90" data-optional><b>2×</b> throughput</span>
+
+        <div class="pg-item pg-avatar" id="avatar" data-shape="circle" data-label="person 0.99" role="img" aria-label="Illustrated portrait of Mauricio">
           <svg viewBox="0 0 256 256" fill="none" shape-rendering="auto" aria-hidden="true" focusable="false">
           <defs>
           <g id="nose">
@@ -114,204 +124,100 @@
       </div>
     </section>
 
-    <!-- PLAYGROUND -->
-    <section class="playground wrap" id="playground" aria-labelledby="pg-title">
-      <div class="section-head">
-        <p class="kicker mono">00 / playground</p>
-        <h2 id="pg-title" class="reveal">Grab, throw, stack.</h2>
-        <p class="section-head__hint">Everything here is draggable. Tap a card to jump to the story behind it.</p>
-      </div>
-      <div class="pg" id="pg">
-        <a class="pg-item pg-card" href="#job-parvada" data-shape="rect">
-          <span class="pg-card__meta mono">2025 to 2026</span>
-          <strong>Parvada</strong>
-          <span>Software &amp; Deployment Engineer (AI/ML)</span>
-        </a>
-        <a class="pg-item pg-card" href="#job-okus" data-shape="rect">
-          <span class="pg-card__meta mono">2024 to 2025</span>
-          <strong>Okus AI</strong>
-          <span>Data Scientist / ML Engineer</span>
-        </a>
-        <a class="pg-item pg-card" href="#job-harvard" data-shape="rect">
-          <span class="pg-card__meta mono">2022 to 2023</span>
-          <strong>Harvard Medical School</strong>
-          <span>Research Fellow, Zhang Lab</span>
-        </a>
-
-        <span class="pg-item pg-chip" data-shape="pill"><b>3000</b> chicks / min</span>
-        <span class="pg-item pg-chip" data-shape="pill"><b>−33%</b> latency</span>
-        <span class="pg-item pg-chip" data-shape="pill"><b>10×</b> faster re-ID</span>
-        <span class="pg-item pg-chip" data-shape="pill"><b>+60%</b> accuracy</span>
-        <span class="pg-item pg-chip" data-shape="pill" data-optional><b>2×</b> throughput</span>
-        <span class="pg-item pg-chip" data-shape="pill" data-optional><b>50K+</b> records</span>
-
-        <span class="pg-item pg-pebble" data-shape="circle">PyTorch</span>
-        <span class="pg-item pg-pebble pg-pebble--gold" data-shape="circle">YOLOv8</span>
-        <span class="pg-item pg-pebble" data-shape="circle">C++</span>
-        <span class="pg-item pg-pebble" data-shape="circle">LangGraph</span>
-        <span class="pg-item pg-pebble pg-pebble--gold" data-shape="circle">FastAPI</span>
-        <span class="pg-item pg-pebble" data-shape="circle">AWS</span>
-        <span class="pg-item pg-pebble" data-shape="circle" data-optional>ViT</span>
-        <span class="pg-item pg-pebble" data-shape="circle" data-optional>Docker</span>
-        <span class="pg-item pg-pebble pg-pebble--gold" data-shape="circle" data-optional>RAG</span>
-        <span class="pg-item pg-pebble" data-shape="circle" data-optional>ONNX</span>
-      </div>
-    </section>
-
     <!-- ABOUT -->
-    <section class="about wrap" id="about" aria-labelledby="about-title">
-      <div class="section-head">
-        <p class="kicker mono">01 / about</p>
-        <h2 id="about-title" class="reveal">Physics brain, <em>production</em> hands.</h2>
-      </div>
-      <div class="about__grid">
-        <div class="about__text">
-          <p>Backend and AI Engineer with a background in physics and mathematics, specializing in scalable AI systems and production-grade software. I have 3 years of experience building and leading engineering solutions in startup environments, with expertise across architecture, APIs, deployment, and production operations.</p>
-          <p>My work focuses on computer vision, LLM-based agent systems, RAG/ETL pipelines, and performance optimization. I enjoy solving complex problems, improving system efficiency, and building reliable AI infrastructure while collaborating with clients and stakeholders to deliver impactful solutions.</p>
-        </div>
-        <div class="edu">
-          <article class="card">
-            <p class="card__meta mono">June 2023 · Monterrey, NL</p>
-            <h3>Tecnológico de Monterrey</h3>
-            <p>B.S. Industrial Physics Engineering</p>
-            <ul class="tags">
-              <li>GPA 97 / 100</li>
-              <li>Best Score of Program</li>
-            </ul>
-          </article>
-          <article class="card">
-            <p class="card__meta mono">July 2023</p>
-            <h3>Google</h3>
-            <p>Data Analytics Professional Certificate</p>
-            <ul class="tags">
-              <li>SQL</li><li>Tableau</li><li>R</li><li>Excel</li>
-            </ul>
-          </article>
-        </div>
+    <section class="section" id="about" aria-labelledby="about-title">
+      <h2 class="section__title" id="about-title">About<span class="section__title-box" data-label="about 0.99" aria-hidden="true"></span></h2>
+      <div class="section__body">
+        <p class="about__lead">I'm a backend and AI engineer with a background in physics and mathematics. For three years I've built and led engineering work at startups, covering architecture, APIs, deployment and production operations.</p>
+        <p class="prose">My work centers on computer vision, LLM agent systems, RAG and ETL pipelines, and performance optimization. I like hard problems, efficient systems and reliable AI infrastructure, and I like working directly with clients and stakeholders to get them shipped.</p>
+        <dl class="edu">
+          <div>
+            <dt>Tecnológico de Monterrey, 2023</dt>
+            <dd>B.S. Industrial Physics Engineering. GPA 97/100, best score of the program.</dd>
+          </div>
+          <div>
+            <dt>Google, 2023</dt>
+            <dd>Data Analytics Professional Certificate (SQL, Tableau, R, Excel).</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
-    <!-- EXPERIENCE -->
-    <section class="experience wrap" id="experience" aria-labelledby="exp-title">
-      <div class="section-head">
-        <p class="kicker mono">02 / experience</p>
-        <h2 id="exp-title" class="reveal">Where I've <em>shipped</em>.</h2>
-      </div>
-
-      <ol class="timeline">
+    <!-- WORK -->
+    <section class="section" id="work" aria-labelledby="work-title">
+      <h2 class="section__title" id="work-title">Work<span class="section__title-box" data-label="work 0.98" aria-hidden="true"></span></h2>
+      <ol class="section__body jobs">
         <li class="job" id="job-parvada">
-          <div class="job__side">
-            <p class="job__dates mono">Feb 2025 to May 2026</p>
-            <p class="job__place">Clovis, NM</p>
-          </div>
-          <div class="job__body">
+          <div class="job__head">
             <h3>Parvada</h3>
-            <p class="job__role">Software &amp; Deployment Engineer (AI/ML)</p>
-            <ul class="job__list">
-              <li>Eliminated manual chicken classification, processing <mark>3000 chicks/minute</mark>, by creating an end-to-end AI pipeline in Python and C++ (YOLOv8 object detection, wing localization and a ViT classifier), integrated with PCIe actuators for automatic separation.</li>
-              <li>Reduced transportation cost by <mark>50%</mark> by developing and deploying a local AI agent for system diagnostics (OpenAI when online, Llama when offline) that identifies software vs. hardware failures, applies software fixes and pinpoints components needing maintenance.</li>
-              <li>Reduced inference latency by <mark>33%</mark> by implementing grayscale inference in Ultralytics before native support was available.</li>
-              <li>Increased model accuracy by <mark>60%</mark> with a high-performance C++ machine vision library for an industrial high-speed camera: asynchronous frame acquisition with zero-copy transfers (capture → pinned memory → GPU inference), raising frames captured per chicken.</li>
-              <li>Designed and implemented a custom C++ object tracker that re-identifies object IDs <mark>10× faster</mark> than conventional tracking algorithms.</li>
-              <li>Drove a <mark>30%</mark> increase in clients by shipping a TypeScript/Node.js mobile app with hybrid CNN inference (on-device when offline, Amazon SageMaker endpoint when connected) to classify chickens by gender and count them in an image.</li>
-              <li>Delivered a <mark>50%</mark> reduction in client operational costs by owning the full deployment lifecycle (hardware assembly, model training and integration, machine validation, post-launch monitoring) as the sole technical point of contact across three live production systems.</li>
-            </ul>
-            <ul class="tags">
-              <li>Python</li><li>C++</li><li>YOLOv8</li><li>ViT</li><li>CUDA / zero-copy</li><li>LLM agents</li><li>TypeScript</li><li>SageMaker</li>
-            </ul>
+            <p class="job__role">Software and deployment engineer, AI/ML</p>
+            <p class="job__meta">Feb 2025 to May 2026, Clovis, NM</p>
           </div>
+          <ul class="prose job__list">
+            <li>Eliminated manual chicken classification with an end-to-end AI pipeline in Python and C++ that processes 3000 chicks a minute: YOLOv8 detection, wing localization and a ViT classifier, wired to PCIe actuators for automatic separation.</li>
+            <li>Cut transportation costs by 50% with a local AI diagnostics agent (OpenAI when online, Llama when offline) that tells software failures from hardware ones, applies software fixes and pinpoints the parts that need maintenance.</li>
+            <li>Cut inference latency by 33% by implementing grayscale inference in Ultralytics before it was supported natively.</li>
+            <li>Raised model accuracy by 60% with a high-performance C++ machine vision library for an industrial high-speed camera. Frames go from capture to pinned memory to GPU inference with asynchronous, zero-copy transfers, so each chicken is seen in more frames.</li>
+            <li>Designed and built a custom C++ object tracker that re-identifies object IDs 10× faster than conventional tracking algorithms.</li>
+            <li>Grew clients by 30% by shipping a TypeScript and Node.js mobile app with hybrid CNN inference (on-device when offline, an Amazon SageMaker endpoint when connected) that classifies chickens by sex and counts them in a photo.</li>
+            <li>Cut client operating costs by 50% by owning the full deployment lifecycle (hardware assembly, model training and integration, machine validation and post-launch monitoring) as the sole technical contact for three live production systems.</li>
+          </ul>
         </li>
 
         <li class="job" id="job-okus">
-          <div class="job__side">
-            <p class="job__dates mono">Feb 2024 to Mar 2025</p>
-            <p class="job__place">Remote, USA</p>
-          </div>
-          <div class="job__body">
+          <div class="job__head">
             <h3>Okus AI</h3>
-            <p class="job__role">Data Scientist / ML Engineer</p>
-            <ul class="job__list">
-              <li><mark>Doubled</mark> production throughput by designing an end-to-end ELT pipeline that extracted raw video from multiple factory areas, ran CNN-based pose detection and segmentation, and converted it into structured production records (process, workers, machine ID, start/end times and other operational metrics).</li>
-              <li>Increased the number of clients by <mark>100%</mark> by building the data infrastructure to store process records in Amazon DynamoDB and integrating an Amazon Bedrock LLM agent that analyzes records and writes a full operations report.</li>
-              <li>Built a Python data pipeline that ingested <mark>50K+</mark> ClinicalTrials records and applied NLP entity extraction and market-sizing models to rank addressable fields with AI adoption potential.</li>
-            </ul>
-            <ul class="tags">
-              <li>Pose estimation</li><li>Segmentation</li><li>ELT</li><li>DynamoDB</li><li>Bedrock</li><li>NLP</li>
-            </ul>
+            <p class="job__role">Data scientist and ML engineer</p>
+            <p class="job__meta">Feb 2024 to Mar 2025, remote (USA)</p>
           </div>
+          <ul class="prose job__list">
+            <li>Doubled production throughput with an end-to-end ELT pipeline that pulled raw video from several factory areas, ran CNN pose detection and segmentation, and turned it into structured production records: process, workers, machine ID, start and end times and other operational metrics.</li>
+            <li>Doubled the client base by building the data infrastructure that stores those records in Amazon DynamoDB, and integrating an Amazon Bedrock LLM agent that analyzes them and writes a full operations report.</li>
+            <li>Built a Python pipeline that ingested more than 50,000 ClinicalTrials records and used NLP entity extraction and market-sizing models to rank fields by their potential for AI adoption.</li>
+          </ul>
         </li>
 
         <li class="job" id="job-harvard">
-          <div class="job__side">
-            <p class="job__dates mono">Feb 2022 to Feb 2023</p>
-            <p class="job__place">Boston, MA</p>
-            <p class="job__badge mono">research</p>
+          <div class="job__head">
+            <h3>Harvard Medical School</h3>
+            <p class="job__role">Undergraduate research fellow, Zhang Lab (software and computation)</p>
+            <p class="job__meta">Feb 2022 to Feb 2023, Boston, MA</p>
           </div>
-          <div class="job__body">
-            <h3>Harvard Medical School, Zhang Lab</h3>
-            <p class="job__role">Undergraduate Research Fellow (Software &amp; Computational)</p>
-            <ul class="job__list">
-              <li>Cut manual microscopy annotation time by <mark>~60%</mark> by building Python image-processing pipelines that automatically analyze cell distribution, quantifying the relationship between cell size and population frequency.</li>
-              <li>Implemented finite element simulations for soft magnetic materials using FORTRAN and ABAQUS, modeling material behavior and physical interactions.</li>
-            </ul>
-            <ul class="tags">
-              <li>Python</li><li>Image processing</li><li>FORTRAN</li><li>ABAQUS</li><li>FEM</li>
-            </ul>
-          </div>
+          <ul class="prose job__list">
+            <li>Cut manual microscopy annotation time by about 60% with Python image-processing pipelines that analyze cell distribution automatically, relating cell size to population frequency.</li>
+            <li>Ran finite element simulations of soft magnetic materials in FORTRAN and ABAQUS, modeling material behavior and physical interactions.</li>
+          </ul>
         </li>
       </ol>
     </section>
 
     <!-- SKILLS -->
-    <section class="skills wrap" id="skills" aria-labelledby="skills-title">
-      <div class="section-head">
-        <p class="kicker mono">03 / skills</p>
-        <h2 id="skills-title" class="reveal">The <em>toolbox</em>.</h2>
-      </div>
-      <div class="skills__grid">
-        <article class="card">
-          <h3 class="mono">AI &amp; LLM</h3>
-          <ul class="tags"><li>LangChain</li><li>LangGraph</li><li>RAG</li><li>Multi-Agent Systems</li><li>Generative AI</li><li>Prompt Engineering &amp; Versioning</li><li>Tool Calling</li><li>OpenAI SDK</li><li>Anthropic SDK</li><li>Ollama</li><li>HuggingFace</li></ul>
-        </article>
-        <article class="card">
-          <h3 class="mono">ML &amp; Computer Vision</h3>
-          <ul class="tags"><li>PyTorch</li><li>YOLOv8 / Ultralytics</li><li>Computer Vision</li><li>Deep Learning</li><li>NLP</li><li>Training &amp; Fine-tuning</li></ul>
-        </article>
-        <article class="card">
-          <h3 class="mono">Evaluation &amp; Monitoring</h3>
-          <ul class="tags"><li>precision@k</li><li>MRR</li><li>BLEU</li><li>Perplexity</li><li>Drift detection</li><li>Retrieval evaluation</li><li>Regression testing</li></ul>
-        </article>
-        <article class="card">
-          <h3 class="mono">Vector DBs &amp; Retrieval</h3>
-          <ul class="tags"><li>OpenSearch (AWS)</li><li>ChromaDB</li><li>Pinecone</li><li>Vector indexing</li><li>Structured extraction</li><li>Chunking strategies</li></ul>
-        </article>
-        <article class="card">
-          <h3 class="mono">Backend &amp; APIs</h3>
-          <ul class="tags"><li>Python</li><li>FastAPI</li><li>TypeScript</li><li>Node.js</li><li>C++</li><li>Bash</li><li>SQL</li><li>REST / Webhooks</li><li>CI/CD</li><li>pytest</li></ul>
-        </article>
-        <article class="card">
-          <h3 class="mono">Infrastructure</h3>
-          <ul class="tags"><li>Linux administration</li><li>Docker</li><li>ONNX</li><li>Distributed systems</li><li>AWS (EC2, S3, endpoints)</li><li>Git</li></ul>
-        </article>
-      </div>
-      <p class="skills__langs"><span class="mono">languages →</span> Spanish (native) · English (bilingual)</p>
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <h2 class="section__title" id="skills-title">Skills<span class="section__title-box" data-label="skills 0.97" aria-hidden="true"></span></h2>
+      <dl class="section__body skills">
+        <div><dt>AI and LLMs</dt><dd>LangChain, LangGraph, RAG, multi-agent systems, generative AI, prompt engineering and versioning, tool calling, OpenAI SDK, Anthropic SDK, Ollama, Hugging Face</dd></div>
+        <div><dt>ML and vision</dt><dd>PyTorch, YOLOv8 and Ultralytics, computer vision, deep learning, NLP, model training and fine-tuning</dd></div>
+        <div><dt>Evaluation</dt><dd>precision@k, MRR, BLEU, perplexity, drift detection, retrieval evaluation, regression testing</dd></div>
+        <div><dt>Retrieval</dt><dd>OpenSearch (AWS), ChromaDB, Pinecone, vector indexing, structured extraction, chunking strategies</dd></div>
+        <div><dt>Backend</dt><dd>Python, FastAPI, TypeScript, Node.js, C++, Bash, SQL, REST and webhook design, CI/CD, pytest</dd></div>
+        <div><dt>Infrastructure</dt><dd>Linux administration, Docker, ONNX, distributed systems, AWS (EC2, S3, endpoints), Git</dd></div>
+        <div><dt>Languages</dt><dd>Spanish (native), English (bilingual)</dd></div>
+      </dl>
     </section>
 
     <!-- CONTACT -->
-    <section class="contact wrap" id="contact" aria-labelledby="contact-title">
-      <p class="kicker mono">04 / contact</p>
-      <h2 id="contact-title" class="contact__title reveal">Let's build something that <em>runs in production</em>.</h2>
-      <a class="contact__email" href="mailto:ing.mauricioglez1409@outlook.com">ing.mauricioglez1409@outlook.com</a>
-      <ul class="contact__links">
-        <li><a href="https://github.com/bebedovis" target="_blank" rel="noopener">GitHub ↗</a></li>
-        <li><a href="maucv.pdf" target="_blank" rel="noopener">CV (PDF) ↗</a></li>
-      </ul>
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <h2 class="section__title" id="contact-title">Contact<span class="section__title-box" data-label="contact 0.99" aria-hidden="true"></span></h2>
+      <div class="section__body contact">
+        <p class="contact__line">I'm based in San Andrés Cholula, Mexico, and open to remote work. The fastest way to reach me is email.</p>
+        <a class="contact__email" href="mailto:ing.mauricioglez1409@outlook.com">ing.mauricioglez1409@outlook.com</a>
+        <p class="contact__links"><a href="https://github.com/bebedovis" target="_blank" rel="noopener">GitHub</a><a href="maucv.pdf" target="_blank" rel="noopener">Download CV (PDF)</a></p>
+      </div>
     </section>
   </main>
 
-  <footer class="footer wrap">
-    <span>© <span id="year">2026</span> Mauricio González Ortiz</span>
-    <a href="#top">Back to top ↑</a>
+  <footer class="footer">
+    <p>© <span id="year">2026</span> Mauricio González Ortiz</p>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js" defer></script>
