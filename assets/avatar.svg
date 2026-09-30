@@ -1,0 +1,94 @@
+<svg viewBox="0 0 256 256" fill="none" shape-rendering="auto" aria-hidden="true" width="512" height="512">
+    <defs>
+        <g id="nose">
+            <path d="M12.5 43.3c3.7 0 8.5-1.5 9.2-6 .6-3.7-5.6-3.1-7.3-7.4a70 70 0 0 1 0-23.4" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+
+        <g id="eyes" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19.8 37.8c2.2-3.1 9-8.4 19-4m36.8-.3c2.8-2.7 10.5-6.3 19.4 0"></path>
+            <path d="m70.5 25.8c3.4-5.4 14.3-11.2 22-7.6"></path>
+            <path d="m 20.6 20.8c5.4-1.7 18-3.6 25.7 2.2"></path>
+
+        </g>
+        <g id="pupils" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d=" M28.3 33.3 c -1 .5 -2.7 2.1 -1.5 4.5 1.5 3  6.5 .5  6 -1.5 -0.4 -1.6 -2.2 -2 -3 -2  M83.3 31.3 c -1 .5 -2.7 2.1 -1.5 4.5 1.5 3  6.5 .5  6 -1.5 -0.4 -1.6 -2.2 -2 -3 -2 "></path>
+
+            
+            
+        </g>
+
+        <g id="hair" stroke="#8B8000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#E1C16E">
+            
+            <circle cx="70" cy="85" r="15"></circle>
+            <circle cx="92" cy="68" r="14"></circle>
+            <circle cx="115" cy="75" r="13"></circle>
+            <circle cx="140" cy="70" r="15"></circle>
+            <circle cx="162" cy="78" r="14"></circle>
+
+            
+            <circle cx="115" cy="60" r="12"></circle>
+            <circle cx="155" cy="65" r="14"></circle>
+            <circle cx="180" cy="80" r="15"></circle>
+
+            <circle cx="85" cy="95" r="14"></circle>
+            <circle cx="105" cy="92" r="12"></circle>
+            <circle cx="125" cy="90" r="13"></circle>
+
+            
+            <circle cx="60" cy="120" r="12"></circle>
+            <circle cx="65" cy="105" r="12"></circle>
+            <circle cx="75" cy="115" r="11"></circle>
+
+            
+            <circle cx="190" cy="120" r="12"></circle>
+            <circle cx="190" cy="100" r="11"></circle>
+
+            
+             <circle cx="180" cy="110" r="14"></circle>
+            <circle cx="170" cy="100" r="12"></circle>
+            <circle cx="140" cy="90" r="11"></circle>
+            <circle cx="160" cy="100" r="13"></circle>
+    
+             
+        </g>
+        <g id="mouth" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+             <path d="M110.5 80.5a88 88 0 0 0 36.2 0"></path>
+            
+            
+            
+            
+            
+            
+            
+           
+        </g>
+        <g id="bigote" stroke="#8B8000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 14.3s5.7-2.8 7.1-7.6m1.1 1.8c.2.8-7 9.3-7 9.3m9-9.8c-.5 4.3-5.2 10.4-5.2 10.4m2.6 1.1s5.3-4.8 5.8-10.3m2.1-.3c0 3.5-1.6 11.2-1.6 11.2M43.1 7.2v12.3m-26.9.2s4.2-5.3 4.2-9.6m26.3 7.6s-3-6.2-3-10.6M22.8 9.7c.3 2.4-2.9 9.8-2.9 9.8M53 6.4a32 32 0 0 0 5.4 8.3M46.7 7.5c.2 2.4 4.8 9.8 4.8 9.8M25.2 9.6c-.6 4-1.3 10.6-1.3 10.6M48.3 6.8l6.4 9.2M27.5 9.4c.6 2.8.8 8.6 3.7 10.6M56 6.8c1.5 2.3 4.4 5.9 8.2 6.8M31.5 8.5c0 1.3-1.8 5.9 1 11m4.9.5s-5-6.2-5-11.5m2.6-.4c0 3.8 6.1 12 6.1 12m.9-.6c-.6-2-3.8-9.3-3.4-12.5"></path>
+        </g>
+        
+        <g id="head">
+
+            <path d="M187.9 155c3.6-2 10.7.7 10.7 8.6s-1.1 10.8-3.7 14.2c-2 2.6-5.6 3.2-8 2.7M71.2 155.4C63.5 153 59 159.4 61 170c2.1 11.4 10.2 11.3 12.5 10.8" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#ffffff"></path>
+            <path d="M128 80&#xA;               C 162 80, 188 98, 192 145&#xA;               C 195 175, 187 205, 165 225&#xA;               C 150 238, 138 245, 128 245&#xA;               C 118 245, 106 238, 91 225&#xA;               C 69 205, 61 175, 64 145&#xA;               C 68 98, 94 80, 128 80 Z" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="scale(0.9,1) translate(16,0) rotate(-5, 128, 150)" fill="#ffffff"></path>
+       
+
+            <use transform="translate(114 147)" href="#nose"></use>
+
+            <use transform="translate(75 124)" href="#eyes"></use>
+
+            <use href="#pupils"></use>
+            <use transform="translate(100 193) scale(1,0.7)" href="#bigote"></use>
+            <use transform="translate(5 137)" href="#mouth"></use>
+            <use transform="translate(2 24)" href="#hair"></use>
+              
+        </g>
+
+        <clipPath id="clip-d4db3795">
+            <rect width="256" height="256" rx="0" ry="0"></rect>
+        </clipPath>
+    </defs>
+
+    <g clip-path="url(#clip-d4db3795)">
+        <use transform="translate(-1.5 -33.5)" href="#head"></use>
+    </g>
+</svg>
