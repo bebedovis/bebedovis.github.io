@@ -23,4 +23,24 @@ The personal portfolio of Mauricio González Ortiz, an AI/ML and backend enginee
 
 ## Content rules
 
-The content comes from `maucv.pdf`, covering background, education, work and research experience, and skills. The CV's "Independent Projects" section is intentionally left out. When you add a job, add it both to the `.timeline` in `#experience` and as a `.pg-card` in the playground, with a matching `id`/`href`.
+The content comes from `maucv.pdf`, covering background, education, work and research experience, and skills. The CV's "Independent Projects" section is intentionally left out. When you add a job, add it both to the `.timeline` in `#experience` and as a `.pg-card` in the playground, with a matching `id`/`href`. The phone number from the CV is deliberately not shown on the public site.
+
+## Playground gotchas
+
+- Body sizes come from each element's rendered size (`offsetWidth`/`offsetHeight`) at the moment the pile is built. The pile is built the first time `#pg` scrolls into view, and rebuilt when the viewport crosses the phone breakpoint. Resize the items in CSS; never set their size in JS.
+- The phone breakpoint appears in two places: `@media (max-width: 767px)` in `styles.css` and `mobileQuery` in `playground.js`. Keep them in sync.
+- Styles for items in physics mode belong under `.pg.is-live`. Plain `.pg` styles are the static fallback layout.
+
+## Deploy
+
+Pushing to `main` is the deploy: GitHub Pages publishes the repo root within about a minute. There is no CI. To confirm a deploy, run `curl -s https://bebedovis.github.io/` and check the output for the new content. Before the rebuild, the site was a self-unpacking bundle; it is still available in git history (commit `81b089b`) if you need anything from it.
+
+## Verifying changes
+
+There are no tests. Check changes in a browser at 375, 768 and 1440 px widths:
+
+- `document.documentElement.scrollWidth` must equal `innerWidth` (no horizontal overflow).
+- The console must show no errors.
+- The playground must still drag and throw.
+
+For headless checks, Google Chrome is installed at `/usr/bin/google-chrome`. Playwright can drive it (`channel="chrome"`); install Playwright in a scratch venv, not in this repo. To simulate touch, use CDP `Input.dispatchTouchEvent`. `Input.synthesizeScrollGesture` doesn't scroll the page here, even outside the playground.
