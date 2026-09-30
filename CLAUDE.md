@@ -36,7 +36,11 @@ The personal portfolio of Mauricio González Ortiz, an AI/ML and backend enginee
 
 ## Playground gotchas
 
-- Body sizes come from each element's rendered size at build time. The pile is built on load and rebuilt when the viewport crosses the phone breakpoint. Resize the items in CSS; never set their size in JS.
+- Body sizes come from each element's rendered size at build time. Resize the items in CSS; never set their size in JS.
+  - The first build waits for the exact web-font faces the objects use, via `document.fonts.load(...)` with a 3 s timeout. `document.fonts.ready` alone resolves too early.
+  - A per-item `ResizeObserver` (`resyncItem`) rebuilds a body in place if its element's size changes later. Without both of these, boxes and collisions don't match the objects on slow phone connections.
+  - If an object uses a new font weight, add it to `faces` in `playground.js`.
+  - The pile is also rebuilt when the viewport crosses the phone breakpoint.
 - The phone breakpoint appears in two places: `@media (max-width: 767px)` in `styles.css` and `mobileQuery` in `playground.js`. Keep them in sync.
 - Styles for items in physics mode go under `.pg.is-live`; plain `.pg-items` styles are the fallback layout.
 

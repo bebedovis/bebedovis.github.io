@@ -160,7 +160,6 @@
       box.classList.toggle('is-front', grabbed);
       const labelText = grabbed ? item.id : item.text;
       if (item.label.textContent !== labelText) item.label.textContent = labelText;
-      if (!seen && !box.classList.contains('is-seen')) continue;
       const { min, max } = body.bounds;
       box.style.width = `${(max.x - min.x + BOX_PAD * 2).toFixed(1)}px`;
       box.style.height = `${(max.y - min.y + BOX_PAD * 2).toFixed(1)}px`;
@@ -265,8 +264,51 @@
   measure();
   buildWalls();
 
-  // The hero is on screen at load, so drop the items right away.
-  buildItems();
+  // Keep each body the same size as its element. Sizes can change after the build,
+  // e.g. when web fonts arrive late on a slow phone connection or the phone rotates.
+  const resyncItem = (item) => {
+    const w = item.el.offsetWidth;
+    const h = item.el.offsetHeight;
+    if (!w || (Math.abs(w - item.w) < 1 && Math.abs(h - item.h) < 1)) return;
+    const old = item.body;
+    const next = makeBody(item.el, old.position.x, old.position.y).body;
+    Body.setAngle(next, old.angle);
+    Body.setVelocity(next, old.velocity);
+    Body.setAngularVelocity(next, old.angularVelocity);
+    if (item.el.classList.contains('is-placed')) {
+      Composite.remove(engine.world, old);
+      Composite.add(engine.world, next);
+    }
+    if (drag && drag.item === item) drag.constraint.bodyB = next;
+    item.body = next;
+    item.w = w;
+    item.h = h;
+    render();
+  };
+  const itemObserver = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const item = items.find((it) => it.el === entry.target);
+      if (item) resyncItem(item);
+    }
+  });
+  container.querySelectorAll('.pg-item').forEach((el) => itemObserver.observe(el));
+
+  // The hero is on screen at load, so drop the items as soon as the web fonts are in:
+  // they decide each object's size and where the intro text ends. Don't wait forever.
+  // document.fonts.ready alone can resolve before these faces are even requested,
+  // so load the exact ones the objects and the name use.
+  const faces = ['300 1em Newsreader', '400 1em Newsreader', '500 1em Newsreader', '400 1em "Hanken Grotesk"'];
+  const fontsReady = document.fonts
+    ? Promise.race([
+      Promise.all(faces.map((f) => document.fonts.load(f))).catch(() => {}),
+      new Promise((r) => setTimeout(r, 3000)),
+    ])
+    : Promise.resolve();
+  fontsReady.then(() => {
+    measure();
+    buildWalls();
+    buildItems();
+  });
   const io = new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
     updateRunning();
